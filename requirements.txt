@@ -1,0 +1,5 @@
+Django>=6.0,<6.1
+numpy
+scipy
+pandas
+requests
