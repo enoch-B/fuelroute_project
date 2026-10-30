@@ -92,3 +92,11 @@ def route_plan(request):
     if request.GET.get("format") == "html":
         return HttpResponse(MAP_HTML.replace("__DATA__", json.dumps(result)))
     return JsonResponse(result)
+
+def thin(geometry, max_points=1500):
+    c = geometry["coordinates"]
+    step = max(1, len(c) // max_points)
+    out = c[::step]
+    if out[-1] != c[-1]:
+        out.append(c[-1])
+    return {"type": "LineString", "coordinates": out}

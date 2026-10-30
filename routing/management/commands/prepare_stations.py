@@ -48,6 +48,8 @@ class Command(BaseCommand):
             "City": "city", "State": "state", "Retail Price": "price",
             "LATITUDE": "lat", "LONGITUDE": "lng",
         })[["id", "name", "address", "city", "state", "price", "lat", "lng"]]
+        for col in ["name", "address", "city", "state"]:
+        out[col] = out[col].astype(str).str.strip()
         out.to_csv(DATA / "stations.csv", index=False)
         self.stdout.write(self.style.SUCCESS(
             f"Wrote {len(out)} stations ({missing} skipped: city not found)"))
